@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Featured Vehicles</title>
+<meta name="description" content="Golden Mile Chrysler featured vehicles for November 2026, with weekly finance pricing.">
+<style>
+/* ===========================================================
+   GOLDEN MILE CHRYSLER — FEATURED VEHICLES
+   Plain CSS, no frameworks, no build step.
+
+   TODO — swap these for the real site values once confirmed:
+     --brand   the dealership's accent / call-to-action colour
+     --bar     the utility bar + footer background
+     --font    the site's typeface
+   =========================================================== */
+:root{
+  --brand:#E8651B;
+  --brand-dark:#C8540F;
+  --bar:#141414;
+  --ink:#1A1A1A;
+  --ink-soft:#5A5A5A;
+  --line:#DFDFDF;
+  --bg:#FFFFFF;
+  --bg-soft:#F5F5F5;
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --wrap:1280px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ink:#F0F0F0; --ink-soft:#A6A6A6; --line:#333333;
+    --bg:#161616; --bg-soft:#1E1E1E;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#F0F0F0; --ink-soft:#A6A6A6; --line:#333333;
+  --bg:#161616; --bg-soft:#1E1E1E;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--font);font-size:16px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{margin:0;line-height:1.2}
+p{margin:0}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
+
+/* ---------- utility bar ---------- */
+.util{background:var(--bar);color:#EDEDED;font-size:13px}
+.util .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;padding-block:9px}
+.util a{text-decoration:none;white-space:nowrap}
+.util a:hover{color:var(--brand)}
+.util .sep{margin-left:auto}
+@media (max-width:700px){ .util .sep{margin-left:0} }
+
+/* ---------- header ---------- */
+.head{border-bottom:1px solid var(--line);background:var(--bg)}
+.head .wrap{display:flex;align-items:center;gap:24px;padding-block:16px}
+.logo{display:flex;flex-direction:column;text-decoration:none;flex:none}
+.logo b{font-size:20px;font-weight:700;letter-spacing:-.01em}
+.logo span{font-size:12px;color:var(--ink-soft)}
+.nav{display:flex;gap:22px;margin-left:auto;flex-wrap:wrap}
+.nav a{font-size:15px;text-decoration:none;padding:4px 0;border-bottom:2px solid transparent}
+.nav a:hover{border-color:var(--brand);color:var(--brand)}
+@media (max-width:860px){ .nav{display:none} }
+
+/* ---------- page head ---------- */
+.intro{padding:40px 0 8px}
+.intro h1{font-size:clamp(28px,4vw,40px);font-weight:700;letter-spacing:-.02em}
+.intro p{margin-top:12px;max-width:68ch;color:var(--ink-soft)}
+.intro .terms{
+  margin-top:18px;display:inline-block;background:var(--bg-soft);
+  border:1px solid var(--line);padding:10px 16px;font-size:15px;color:var(--ink-soft);
+}
+.intro .terms b{color:var(--ink)}
+
+/* ---------- vehicle grid ---------- */
+.grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
+  padding:32px 0 48px;
+}
+@media (max-width:1100px){ .grid{grid-template-columns:repeat(3,1fr)} }
+@media (max-width:860px){ .grid{grid-template-columns:repeat(2,1fr);gap:20px} }
+@media (max-width:540px){ .grid{grid-template-columns:1fr} }
+
+.card{
+  border:1px solid var(--line);background:var(--bg);
+  display:flex;flex-direction:column;
+}
+.card .photo{background:#E7E7E7;aspect-ratio:16/10;overflow:hidden}
+.card .photo img{width:100%;height:100%;object-fit:cover}
+.card .body{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card h2{font-size:17px;font-weight:700;letter-spacing:-.01em}
+.card .trim{font-size:14px;color:var(--ink-soft)}
+.card .price{display:flex;align-items:baseline;gap:6px;margin-top:2px}
+.card .price b{font-size:26px;font-weight:700;color:var(--brand);letter-spacing:-.02em}
+.card .price span{font-size:14px;color:var(--ink-soft)}
+.card .terms{font-size:13px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:8px}
+.card .note{font-size:13px;color:var(--ink-soft);line-height:1.45}
+.card .acts{margin-top:auto;padding-top:12px;display:flex;flex-direction:column;gap:8px}
+
+.btn{
+  display:block;text-align:center;text-decoration:none;
+  padding:11px 14px;font-size:14px;font-weight:600;
+  background:var(--brand);color:#FFFFFF;border:1px solid var(--brand);
+}
+.btn:hover{background:var(--brand-dark);border-color:var(--brand-dark)}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn-alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn-alt:hover{background:var(--bg-soft);border-color:var(--ink-soft)}
+
+/* ---------- contact band ---------- */
+.band{background:var(--bg-soft);border-block:1px solid var(--line)}
+.band .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:16px 32px;padding-block:28px}
+.band h2{font-size:22px;font-weight:700}
+.band p{color:var(--ink-soft);font-size:15px;margin-top:4px}
+.band .acts{display:flex;gap:10px;margin-left:auto;flex-wrap:wrap}
+.band .btn{padding:12px 22px}
+@media (max-width:700px){ .band .acts{margin-left:0} }
+
+/* ---------- disclaimer + footer ---------- */
+.legal{padding:28px 0 36px}
+.legal p{font-size:13px;color:var(--ink-soft);line-height:1.6}
+.legal p + p{margin-top:10px}
+
+.foot{background:var(--bar);color:#D8D8D8;font-size:14px}
+.foot .wrap{padding-block:26px;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--brand)}
+.foot .copy{margin-left:auto;color:#9A9A9A;font-size:13px}
+@media (max-width:700px){ .foot .copy{margin-left:0} }
+</style>
+</head>
+<body>
+
+<!-- ========== utility bar ========== -->
+<div class="util">
+  <div class="wrap">
+    <a href="https://maps.google.com/?q=1743+Eglinton+Ave+E,+Toronto,+ON+M4A+1J8" target="_blank" rel="noopener">1743 Eglinton Ave E, Toronto</a>
+    <a class="sep" href="tel:+16472885337">Sales 647-288-5337</a>
+    <a href="tel:+16472885337">Service 647-288-5337</a>
+    <a href="tel:+14164026782">Collision 416-402-6782</a>
+  </div>
+</div>
+
+<!-- ========== header ========== -->
+<header class="head">
+  <div class="wrap">
+    <!-- TODO: replace with the real dealership logo -->
+    <a class="logo" href="https://www.goldenmilechrysler.ca/" target="_blank" rel="noopener">
+      <b>Golden Mile Chrysler</b>
+      <span>Toronto, Ontario</span>
+    </a>
+    <nav class="nav">
+      <a href="https://www.goldenmilechrysler.ca/new/new.html" target="_blank" rel="noopener">New</a>
+      <a href="https://www.goldenmilechrysler.ca/demos/" target="_blank" rel="noopener">Demos</a>
+      <a href="https://www.goldenmilechrysler.ca/used/" target="_blank" rel="noopener">Pre-Owned</a>
+      <a href="https://www.goldenmilechrysler.ca/apply-for-financing/" target="_blank" rel="noopener">Finance</a>
+      <a href="https://www.goldenmilechrysler.ca/contact/" target="_blank" rel="noopener">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ========== page head ========== -->
+<section class="wrap intro">
+  <h1>November Featured Vehicles</h1>
+  <p>Eight vehicles from our lot this month, priced as a weekly finance payment. Click any vehicle to see the listing, or call and ask for it by Rx number.</p>
+  <p class="terms"><b>$0 Down</b> &nbsp;&middot;&nbsp; <b>96 Months</b> &nbsp;&middot;&nbsp; <b>5.99%</b> &nbsp;&middot;&nbsp; plus HST &amp; Licensing</p>
+</section>
+
+<!-- ========== vehicles ==========
+     Each card has three links to maintain:
+       1. .btn     -> the vehicle listing (VDP) URL
+       2. tel:     -> sales phone
+       3. mailto:  -> sales email, subject prefilled with the unit
+     ================================ -->
+<section class="wrap">
+  <div class="grid">
+
+    <article class="card">
+      <div class="photo"><img src="images/jeep-compass-sport-demo.png" alt="2026 Jeep Compass Sport 4x4" width="590" height="335" loading="lazy"></div>
+      <div class="body">
+        <h2>2026 Jeep Compass Sport 4&times;4</h2>
+        <p class="trim">Rx #001 &nbsp;&middot;&nbsp; Demo &nbsp;&middot;&nbsp; Stock 826022 &nbsp;&middot;&nbsp; Bright White</p>
+        <p class="price"><b>$100.88</b><span>/week</span></p>
+        <p class="terms">$0 Down &middot; 96 Months &middot; 5.99% &middot; + HST &amp; Licensing</p>
+        <div class="acts">
+          <!-- VDP LINK - Rx #001 -->
+          <a class="btn" href="https://www.goldenmilechrysler.ca/inventory/2026-jeep-compass-sport-6RtZSXDCTf6mu5XiHsaREAvdp/" target="_blank" rel="noopener">View Featured Special</a>
+          <div class="btn-row">
+            <a class="btn btn-alt" href="tel:+16472885337">Call</a>
+            <a class="btn btn-alt" href="mailto:sales@goldenmilechrysler.ca?subject=Rx%20%23001%20-%202026%20Jeep%20Compass%20Sport%204x4%20Demo%20(stock%20826022)&amp;body=Hi%20Golden%20Mile%20Chrysler%2C%0A%0AI%27d%20like%20more%20information%20on%20the%202026%20Jeep%20Compass%20Sport%204x4%20Demo%20advertised%20at%20%24100.88%2Fweek.%0A%0AName%3A%0ABest%20number%20to%20reach%20me%3A">Email</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="photo"><img src="images/grand-caravan-sxt-demo.png" alt="2026 Chrysler Grand Caravan SXT" width="590" height="335" loading="lazy"></div>
+      <div class="body">
+        <h2>2026 Chrysler Grand Caravan SXT</h2>
+        <p class="trim">Rx #002 &nbsp;&middot;&nbsp; Demo &nbsp;&middot;&nbsp; Stock 826156 &nbsp;&middot;&nbsp; Red Hot</p>
+        <p class="price"><b>$148.88</b><span>/week</span></p>
+        <p class="terms">$0 Down &middot; 96 Months &middot; 5.99% &middot; + HST &amp; Licensing</p>
+        <p class="note">Manufacturer image. The unit is a demonstrator in Red Hot Pearl; the render shows base trim and different wheels.</p>
+        <div class="acts">
+          <!-- VDP LINK - Rx #002 -->
+          <a class="btn" href="https://www.goldenmilechrysler.ca/inventory/2026-chrysler-grand-caravan-sxt-kzQOXzATSzO6U2cCQMwLpAvdp/" target="_blank" rel="noopener">View Featured Special</a>
+          <div class="btn-row">
+            <a class="btn btn-alt" href="tel:+16472885337">Call</a>
+            <a class="btn btn-alt" href="mailto:sales@goldenmilechrysler.ca?subject=Rx%20%23002%20-%202026%20Chrysler%20Grand%20Caravan%20SXT%20Demo%20(stock%20826156)&amp;body=Hi%20Golden%20Mile%20Chrysler%2C%0A%0AI%27d%20like%20more%20information%20on%20the%202026%20Chrysler%20Grand%20Caravan%20SXT%20demonstrator%20advertised%20at%20%24148.88%2Fweek.%0A%0AName%3A%0ABest%20number%20to%20reach%20me%3A">Email</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="photo"><img src="images/jeep-gladiator-willys.png" alt="2026 Jeep Gladiator Willys 4x4" width="590" height="335" loading="lazy"></div>
+      <div class="body">
+        <h2>2026 Jeep Gladiator Willys 4&times;4</h2>
+        <p class="trim">Rx #003 &nbsp;&middot;&nbsp; Stock 826155 &nbsp;&middot;&nbsp; Black</p>
+        <p class="price"><b>$171.88</b><span>/week</span></p>
+        <p class="terms">$0 Down &middot; 96 Months &middot; 5.99% &middot; + HST &amp; Licensing</p>
+        <div class="acts">
+          <!-- VDP LINK - Rx #003 -->
+          <a class="btn" href="https://www.goldenmilechrysler.ca/inventory/2026-jeep-gladiator-willys-hbubEe2NQH6PYjnpctoJ3gvdp/" target="_blank" rel="noopener">View Featured Special</a>
+          <div class="btn-row">
+            <a class="btn btn-alt" href="tel:+16472885337">Call</a>
+            <a class="btn btn-alt" href="mailto:sales@goldenmilechrysler.ca?subject=Rx%20%23003%20-%202026%20Jeep%20Gladiator%20Willys%204x4%20(stock%20826155)&amp;body=Hi%20Golden%20Mile%20Chrysler%2C%0A%0AI%27d%20like%20more%20information%20on%20the%202026%20Jeep%20Gladiator%20Willys%204x4%20advertised%20at%20%24171.88%2Fweek.%0A%0AName%3A%0ABest%20number%20to%20reach%20me%3A">Email</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="photo"><img src="images/jeep-wrangler-sport-s.png" alt="2026 Jeep Wrangler Sport S 4-Door 4x4" width="590" height="335" loading="lazy"></div>
+      <div class="body">
+        <h2>2026 Jeep Wrangler Sport S 4-Door 4&times;4</h2>
+        <p class="trim">Rx #004 &nbsp;&middot;&nbsp; Stock 826103 &nbsp;&middot;&nbsp; Granite Crystal</p>
+        <p class="price"><b>$180.88</b><span>/week</span></p>
+        <p class="terms">$0 Down &middot; 96 Months &middot; 5.99% &middot; + HST &amp; Licensing</p>
+        <div class="acts">
+          <!-- VDP LINK - Rx #004 -->
+          <a class="btn" href="https://www.goldenmilechrysler.ca/inventory/2026-jeep-wrangler-sport-s-rfhdK82dRAyh8vnj2dEqaAvdp/" target="_blank" rel="noopener">View Featured Special</a>
+          <div class="btn-row">
+            <a class="btn btn-alt" href="tel:+16472885337">Call</a>
+            <a class="btn btn-alt" href="mailto:sales@goldenmilechrysler.ca?subject=Rx%20%23004%20-%202026%20Jeep%20Wrangler%20Sport%20S%204-Door%204x4%20(stock%20826103)&amp;body=Hi%20Golden%20Mile%20Chrysler%2C%0A%0AI%27d%20like%20more%20information%20on%20the%202026%20Jeep%20Wrangler%20Sport%20S%204-Door%204x4%20advertised%20at%20%24180.88%2Fweek.%0A%0AName%3A%0ABest%20number%20to%20reach%20me%3A">Email</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="photo"><img src="images/ram-1500-black-express.png" alt="2026 RAM 1500 Black Express 4x4 Crew Cab" width="590" height="335" loading="lazy"></div>
+      <div class="body">
+        <h2>2026 RAM 1500 Black Express 4&times;4 Crew Cab</h2>
+        <p class="trim">Rx #005 &nbsp;&middot;&nbsp; Stock 826321 &nbsp;&middot;&nbsp; Bright White</p>
+        <p class="price"><b>$190.88</b><span>/week</span></p>
+        <p class="terms">$0 Down &middot; 96 Months &middot; 5.99% &middot; + HST &amp; Licensing</p>
+        <div class="acts">
+          <!-- VDP LINK - Rx #005 -->
+          <a class="btn" href="https://www.goldenmilechrysler.ca/inventory/2026-ram-1500-express-Mgzdm2LFQpG88T3om6E3zwvdp/" target="_blank" rel="noopener">View Featured Special</a>
+          <div class="btn-row">
+            <a class="btn btn-alt" href="tel:+16472885337">Call</a>
+            <a class="btn btn-alt" href="mailto:sales@goldenmilechrysler.ca?subject=Rx%20%23005%20-%202026%20RAM%201500%20Black%20Express%204x4%20Crew%20Cab%20(stock%20826321)&amp;body=Hi%20Golden%20Mile%20Chrysler%2C%0A%0AI%27d%20like%20more%20information%20on%20the%202026%20RAM%201500%20Black%20Express%204x4%20Crew%20Cab%20advertised%20at%20%24190.88%2Fweek.%0A%0AName%3A%0ABest%20number%20to%20reach%20me%3A">Email</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="photo"><img src="images/durango-gt-plus.png" alt="2026 Dodge Durango GT Plus AWD" width="590" height="335" loading="lazy"></div>
+      <div class="body">
+        <h2>2026 Dodge Durango GT Plus AWD</h2>
+        <p class="trim">Rx #006 &nbsp;&middot;&nbsp; Stock 826303 &nbsp;&middot;&nbsp; White Knuckle</p>
+        <p class="price"><b>$204.88</b><span>/week</span></p>
+        <p class="terms">$0 Down &middot; 96 Months &middot; 5.99% &middot; + HST &amp; Licensing</p>
+        <p class="note">Photo of a Durango GT from our lot, not this unit. Stock 826303 is White Knuckle with the Blacktop Package; ask for its photos on the call.</p>
+        <div class="acts">
+          <!-- VDP LINK - Rx #006 (stock 826303) -->
+          <a class="btn" href="https://www.goldenmilechrysler.ca/all/vehicle/?vin=1C4RDJDG0TC319359" target="_blank" rel="noopener">View Featured Special</a>
+          <div class="btn-row">
+            <a class="btn btn-alt" href="tel:+16472885337">Call</a>
+            <a class="btn btn-alt" href="mailto:sales@goldenmilechrysler.ca?subject=Rx%20%23006%20-%202026%20Dodge%20Durango%20GT%20Plus%20AWD%20(stock%20826303)&amp;body=Hi%20Golden%20Mile%20Chrysler%2C%0A%0AI%27d%20like%20more%20information%20on%20the%202026%20Dodge%20Durango%20GT%20Plus%20AWD%2C%20stock%20826303%2C%20advertised%20at%20%24204.88%2Fweek.%20Please%20send%20photos%20of%20the%20actual%20unit.%0A%0AName%3A%0ABest%20number%20to%20reach%20me%3A">Email</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="photo"><img src="images/pacifica-pinnacle-demo.png" alt="2027 Chrysler Pacifica Pinnacle AWD" width="590" height="335" loading="lazy"></div>
+      <div class="body">
+        <h2>2027 Chrysler Pacifica Pinnacle AWD</h2>
+        <p class="trim">Rx #007 &nbsp;&middot;&nbsp; Demo &nbsp;&middot;&nbsp; Stock 827009 &nbsp;&middot;&nbsp; Bright White</p>
+        <p class="price"><b>$209.88</b><span>/week</span></p>
+        <p class="terms">$0 Down &middot; 96 Months &middot; 5.99% &middot; + HST &amp; Licensing</p>
+        <p class="note">Manufacturer image. The unit is a Pinnacle demonstrator in Bright White; the render may differ in detail.</p>
+        <div class="acts">
+          <!-- VDP LINK - Rx #007 -->
+          <a class="btn" href="https://www.goldenmilechrysler.ca/inventory/2027-chrysler-pacifica-pinnacle-UIB463OUR3yQIpuEjbFIwAvdp/" target="_blank" rel="noopener">View Featured Special</a>
+          <div class="btn-row">
+            <a class="btn btn-alt" href="tel:+16472885337">Call</a>
+            <a class="btn btn-alt" href="mailto:sales@goldenmilechrysler.ca?subject=Rx%20%23007%20-%202027%20Chrysler%20Pacifica%20Pinnacle%20AWD%20Demo%20(stock%20827009)&amp;body=Hi%20Golden%20Mile%20Chrysler%2C%0A%0AI%27d%20like%20more%20information%20on%20the%202027%20Chrysler%20Pacifica%20Pinnacle%20AWD%20demonstrator%20advertised%20at%20%24209.88%2Fweek.%0A%0AName%3A%0ABest%20number%20to%20reach%20me%3A">Email</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="photo"><img src="images/charger-scat-pack-plus.png" alt="2026 Dodge Charger Scat Pack Plus 2-Door AWD" width="590" height="335" loading="lazy"></div>
+      <div class="body">
+        <h2>2026 Dodge Charger Scat Pack Plus 2-Door AWD</h2>
+        <p class="trim">Rx #008 &nbsp;&middot;&nbsp; Stock 826171 &nbsp;&middot;&nbsp; Bludicrous Blue</p>
+        <p class="price"><b>$226.88</b><span>/week</span></p>
+        <p class="terms">$0 Down &middot; 96 Months &middot; 5.99% &middot; + HST &amp; Licensing</p>
+        <div class="acts">
+          <!-- VDP LINK - Rx #008 : verify this is the blue car, not the gray one -->
+          <a class="btn" href="https://www.goldenmilechrysler.ca/all/vehicle/?vin=2C3CDAMP3TR216230" target="_blank" rel="noopener">View Featured Special</a>
+          <div class="btn-row">
+            <a class="btn btn-alt" href="tel:+16472885337">Call</a>
+            <a class="btn btn-alt" href="mailto:sales@goldenmilechrysler.ca?subject=Rx%20%23008%20-%202026%20Dodge%20Charger%20Scat%20Pack%20Plus%202-Door%20AWD%20(stock%20826171)&amp;body=Hi%20Golden%20Mile%20Chrysler%2C%0A%0AI%27d%20like%20more%20information%20on%20the%202026%20Dodge%20Charger%20Scat%20Pack%20Plus%202-Door%20AWD%20advertised%20at%20%24226.88%2Fweek.%0A%0AName%3A%0ABest%20number%20to%20reach%20me%3A">Email</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ========== contact band ========== -->
+<section class="band">
+  <div class="wrap">
+    <div>
+      <h2>Don&rsquo;t see what you want?</h2>
+      <p>Tell us the weekly payment you want to land on and we&rsquo;ll find the vehicle to match.</p>
+    </div>
+    <div class="acts">
+      <a class="btn" href="tel:+16472885337">Call 647-288-5337</a>
+      <a class="btn btn-alt" href="https://www.goldenmilechrysler.ca/apply-for-financing/" target="_blank" rel="noopener">Apply for Financing</a>
+      <a class="btn btn-alt" href="https://www.goldenmilechrysler.ca/value-your-trade/" target="_blank" rel="noopener">Value Your Trade</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== disclaimer ==========
+     TODO: replace with the dealership's approved compliance wording.
+     ================================ -->
+<section class="wrap legal">
+  <p><b>Disclaimer:</b> Price does not include taxes and licensing fees.</p>
+  <p>Payments shown are weekly, on approved credit, financed over 96 months at 5.99% with $0 down, and exclude HST and licensing. Offers apply to the specific stock numbers shown and are subject to prior sale. Vehicle photos may not represent the exact unit; see each listing for details. Pricing, incentives and rates are subject to change without notice and expire November 30, 2026. Contact the dealership to confirm availability and full details.</p>
+</section>
+
+<!-- ========== footer ========== -->
+<footer class="foot">
+  <div class="wrap">
+    <a href="https://www.goldenmilechrysler.ca/" target="_blank" rel="noopener">Golden Mile Chrysler</a>
+    <a href="tel:+16472885337">647-288-5337</a>
+    <a href="https://www.goldenmilechrysler.ca/contact/" target="_blank" rel="noopener">Contact</a>
+    <a href="https://www.goldenmilechrysler.ca/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>
+    <span class="copy">Copyright &copy; 2026 Golden Mile Chrysler. All Rights Reserved.</span>
+  </div>
+</footer>
+
+</body>
+</html>
