@@ -200,6 +200,180 @@ p{margin:0}
   *{transition-duration:.01ms!important;animation-duration:.01ms!important}
   html{scroll-behavior:auto}
 }
+
+/* ===========================================================
+   STORY — the street the dealership is named after
+   =========================================================== */
+.story{padding:clamp(48px,6vw,84px) 24px clamp(8px,1vw,16px)}
+.story__in{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(24px,3.5vw,52px)}
+.story__then{grid-column:1/7;margin:0}
+.story__then img{width:100%;height:auto;border-radius:var(--r);aspect-ratio:1024/807;object-fit:cover}
+.story__say{grid-column:7/13}
+.story h2{font-size:clamp(26px,3.2vw,38px);font-weight:800;letter-spacing:-.03em;max-width:14ch}
+.story__say p{margin-top:16px;color:var(--ink-2);max-width:48ch}
+.story__now{margin:30px 0 0}
+.story__now img{width:100%;height:auto;border-radius:var(--r);aspect-ratio:1920/667;object-fit:cover}
+figcaption{font-size:12.5px;color:var(--ink-3);margin-top:12px;line-height:1.5;max-width:52ch}
+@media (max-width:900px){
+  .story__then,.story__say{grid-column:1/13}
+  .story__say{margin-top:8px}
+}
+@media (max-width:600px){ .story{padding-inline:16px} }
+
+/* ===========================================================
+   RED ACCENTS, RULES AND HAZARD SPACERS
+   --red is the structural accent; --brand stays the CTA colour.
+   =========================================================== */
+:root{ --red:#D81E05; --red-dark:#AE1704; --red-tint:#FDECEA; }
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){ --red:#FF4A33; --red-tint:#2A1210; }
+}
+:root[data-theme="dark"]{ --red:#FF4A33; --red-tint:#2A1210; }
+
+/* a red rule under the sticky header and above the footer */
+.head{border-bottom:3px solid var(--red)}
+.foot{border-top:3px solid var(--red)}
+
+/* a short red bar leads every major heading */
+.intro h1::before,
+.band h2::before,
+.story h2::before{
+  content:"";display:block;width:48px;height:4px;
+  background:var(--red);border-radius:2px;margin-bottom:20px;
+}
+
+/* the dynamic spacer: hazard striping that keeps moving */
+.spacer{
+  height:10px;width:100%;
+  background:repeating-linear-gradient(135deg,
+    var(--red) 0 14px, var(--dark) 14px 28px);
+  background-size:auto;
+  animation:hazard 2.4s linear infinite;
+}
+@keyframes hazard{ from{background-position:0 0} to{background-position:39.6px 0} }
+
+/* cards pick up a red edge as you hover */
+.card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--red);transform:scaleX(0);transform-origin:left;
+  transition:transform .32s cubic-bezier(.2,.7,.3,1);
+  z-index:3;pointer-events:none;
+}
+.card:hover::before{transform:scaleX(1)}
+
+/* the demo chip reads as a flag, not decoration */
+.tag{background:var(--red)}
+
+/* highlighted figures */
+.chip b{color:var(--red)}
+.terms{border-left:3px solid var(--line)}
+.note{border-left:3px solid var(--red)}
+.legal b{color:var(--red)}
+
+/* the price keeps the brand orange, with a red underline on hover */
+.price b{position:relative;display:inline-block}
+.card:hover .price b::after{
+  content:"";position:absolute;left:0;right:0;bottom:-4px;height:3px;
+  background:var(--red);border-radius:2px;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .spacer{animation:none}
+}
+
+/* ===========================================================
+   PAGE HEAD — dark band, headline left, the figure right
+   =========================================================== */
+.pagehead{background:var(--dark);color:#fff;position:relative}
+.pagehead__in{
+  display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(28px,4vw,64px);
+  align-items:end;padding-block:clamp(44px,5.5vw,82px);
+}
+.pagehead .month{
+  display:inline-block;font-size:13px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--red);margin-bottom:18px;
+}
+.pagehead h1{
+  color:#fff;font-size:clamp(32px,4.6vw,56px);font-weight:800;
+  letter-spacing:-.035em;max-width:17ch;
+}
+.pagehead h1::before{background:var(--red)}
+.pagehead .lede{margin-top:20px;color:#A5ACB7;font-size:clamp(16px,1.6vw,18px);max-width:52ch;line-height:1.6}
+.pagehead .chips{margin-top:28px}
+.pagehead .chip{background:#22262E;border-color:#333B45;color:#C7CDD5}
+.pagehead .chip b{color:#fff}
+
+.pagehead__fig{
+  border-left:3px solid var(--red);padding-left:clamp(20px,2.4vw,32px);
+}
+.pagehead__fig .lbl{
+  display:block;font-size:12px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:#8B929C;
+}
+.pagehead__fig .big{
+  margin-top:8px;font-size:clamp(44px,5.6vw,72px);font-weight:800;
+  color:var(--brand);letter-spacing:-.04em;line-height:1;
+}
+.pagehead__fig .big span{font-size:.3em;font-weight:600;color:#8B929C;margin-left:6px;letter-spacing:-.01em}
+.pagehead__fig .sub{margin-top:16px;color:#A5ACB7;font-size:14.5px;line-height:1.6;max-width:34ch}
+.bigcta{
+  margin-top:26px;display:inline-flex;align-items:center;
+  background:var(--brand);color:#fff;text-decoration:none;
+  padding:14px 26px;border-radius:var(--r-sm);font-weight:600;font-size:15px;
+  transition:background .18s,transform .18s;
+}
+.bigcta:hover{background:var(--brand-dark)}
+.bigcta:active{transform:translateY(1px)}
+
+@media (max-width:980px){
+  .pagehead__in{grid-template-columns:1fr;align-items:start}
+  .pagehead__fig{border-left:0;border-top:3px solid var(--red);padding-left:0;padding-top:26px}
+  .pagehead__fig .sub{max-width:52ch}
+}
+
+/* ===========================================================
+   SECTION HEADING over the grid
+   =========================================================== */
+.sechead{padding:clamp(44px,5vw,72px) 0 4px;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.sechead h2{font-size:clamp(24px,2.8vw,34px);font-weight:800;letter-spacing:-.03em}
+.sechead h2::before{
+  content:"";display:block;width:48px;height:4px;background:var(--red);
+  border-radius:2px;margin-bottom:18px;
+}
+.sechead p{color:var(--ink-3);font-size:15px}
+.grid{padding-top:26px}
+
+/* ===========================================================
+   STORY sits on a tinted panel so it reads as its own chapter
+   =========================================================== */
+.story__in{
+  background:var(--bg-soft);border-radius:var(--r);
+  padding:clamp(26px,3.6vw,52px);
+}
+
+/* ===========================================================
+   MOTION REMOVED — nothing on the page moves or animates
+   =========================================================== */
+.spacer{animation:none}
+.card{transition:border-color .18s ease, box-shadow .18s ease}
+.card:hover{transform:none}
+.shot img{transition:none}
+.card:hover .shot img{transform:none}
+.card::before{transition:none}
+.bigcta,.bigcta:active{transform:none;transition:background .18s ease}
+.btn{transition:background .18s ease, border-color .18s ease, color .18s ease}
+
+/* ===========================================================
+   PAGE HEAD — light instead of black, same structure
+   =========================================================== */
+.pagehead{background:var(--bg-soft);color:var(--ink)}
+.pagehead h1{color:var(--ink)}
+.pagehead .lede{color:var(--ink-2)}
+.pagehead .chip{background:var(--bg);border-color:var(--line);color:var(--ink-2)}
+.pagehead .chip b{color:var(--red)}
+.pagehead__fig .lbl{color:var(--ink-3)}
+.pagehead__fig .big span{color:var(--ink-3)}
+.pagehead__fig .sub{color:var(--ink-2)}
 </style>
 </head>
 <body>
@@ -233,16 +407,27 @@ p{margin:0}
 </header>
 
 <!-- ========== page head ========== -->
-<section class="wrap intro">
-  <span class="month">November 2026</span>
-  <h1>Featured vehicles, priced by the week.</h1>
-  <p class="lede">Eight vehicles from our lot this month. Every one on the same terms, with the weekly payment shown up front. Tap any vehicle to open its listing.</p>
-  <div class="chips">
-    <span class="chip"><b>$0</b> down</span>
-    <span class="chip"><b>96</b> months</span>
-    <span class="chip"><b>5.99%</b> APR</span>
-    <span class="chip">plus HST &amp; licensing</span>
+<section class="pagehead">
+  <div class="wrap pagehead__in">
+    <div class="pagehead__say">
+      <span class="month">November 2026</span>
+      <h1>Featured vehicles, priced by the week.</h1>
+      <p class="lede">Eight vehicles from our lot this month. Every one on the same terms, with the weekly payment shown up front. Tap any vehicle to open its listing.</p>
+      <div class="chips">
+        <span class="chip"><b>$0</b> down</span>
+        <span class="chip"><b>96</b> months</span>
+        <span class="chip"><b>5.99%</b> APR</span>
+        <span class="chip">plus HST &amp; licensing</span>
+      </div>
+    </div>
+    <aside class="pagehead__fig">
+      <span class="lbl">Starting from</span>
+      <p class="big">$100.88<span>/week</span></p>
+      <p class="sub">Eight vehicles on the lot at 1743 Eglinton Avenue East, Toronto. Weekly payments from $100.88 to $226.88.</p>
+      <a class="bigcta" href="#file">See all eight</a>
+    </aside>
   </div>
+  <div class="spacer" role="presentation"></div>
 </section>
 
 <!-- ========== vehicles ==========
@@ -251,7 +436,11 @@ p{margin:0}
        2. tel:      -> sales phone
        3. mailto:   -> sales email, prefilled with the unit + stock number
      ============================================= -->
-<section class="wrap">
+<section class="wrap" id="file">
+  <div class="sechead">
+    <h2>The eight</h2>
+    <p>In order of weekly payment, lowest first.</p>
+  </div>
   <div class="grid">
 
     <article class="card">
@@ -388,6 +577,8 @@ p{margin:0}
   </div>
 </section>
 
+<div class="spacer" role="presentation"></div>
+
 <!-- ========== contact band ========== -->
 <section class="wrap">
   <div class="band">
@@ -401,6 +592,31 @@ p{margin:0}
         <a class="b2" href="https://www.goldenmilechrysler.ca/apply-for-financing/" target="_blank" rel="noopener">Apply for Financing</a>
         <a class="b2" href="https://www.goldenmilechrysler.ca/value-your-trade/" target="_blank" rel="noopener">Value Your Trade</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer" role="presentation"></div>
+
+<!-- ========== the street the dealership is named after ========== -->
+<section class="wrap story">
+  <div class="story__in">
+    <figure class="story__then">
+      <img src="assets/golden-mile-plaza-north-east-corner-of.jpg"
+           alt="The Golden Mile script sign being installed above a new plaza on Eglinton Avenue East in the 1950s, with cars parked along the curb"
+           width="1024" height="807" loading="lazy">
+      <figcaption>Eglinton Avenue East, the 1950s: the Golden Mile sign going up over the new plaza at Victoria Park. Photograph: Toronto History, CC&nbsp;BY&nbsp;2.0.</figcaption>
+    </figure>
+    <div class="story__say">
+      <h2>Named after a mile of road</h2>
+      <p>Eglinton Avenue East was branded the Golden Mile in the 1950s, when it was Canada&rsquo;s first planned industrial strip and the fastest-growing stretch of road in the country.</p>
+      <p>We are still on it, at number 1743. Every vehicle on this page is parked here, and you are welcome to come and sit in all eight of them.</p>
+      <figure class="story__now">
+        <img src="assets/golden-mile-scarborough-2023.jpg"
+             alt="The Golden Mile today, seen from the air: Eglinton Avenue East running east between retail plazas and light industry"
+             width="1920" height="667" loading="lazy">
+        <figcaption>The same mile today, looking east along Eglinton. Photograph: Canmenwalker, CC&nbsp;BY&nbsp;4.0.</figcaption>
+      </figure>
     </div>
   </div>
 </section>
