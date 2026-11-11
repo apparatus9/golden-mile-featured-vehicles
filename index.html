@@ -242,15 +242,7 @@ figcaption{font-size:12.5px;color:var(--ink-3);margin-top:12px;line-height:1.5;m
   background:var(--red);border-radius:2px;margin-bottom:20px;
 }
 
-/* the dynamic spacer: hazard striping that keeps moving */
-.spacer{
-  height:10px;width:100%;
-  background:repeating-linear-gradient(135deg,
-    var(--red) 0 14px, var(--dark) 14px 28px);
-  background-size:auto;
-  animation:hazard 2.4s linear infinite;
-}
-@keyframes hazard{ from{background-position:0 0} to{background-position:39.6px 0} }
+ to{background-position:39.6px 0} }
 
 /* cards pick up a red edge as you hover */
 .card::before{
@@ -278,8 +270,7 @@ figcaption{font-size:12.5px;color:var(--ink-3);margin-top:12px;line-height:1.5;m
 }
 
 @media (prefers-reduced-motion:reduce){
-  .spacer{animation:none}
-}
+  }
 
 /* ===========================================================
    PAGE HEAD — dark band, headline left, the figure right
@@ -354,7 +345,6 @@ figcaption{font-size:12.5px;color:var(--ink-3);margin-top:12px;line-height:1.5;m
 /* ===========================================================
    MOTION REMOVED — nothing on the page moves or animates
    =========================================================== */
-.spacer{animation:none}
 .card{transition:border-color .18s ease, box-shadow .18s ease}
 .card:hover{transform:none}
 .shot img{transition:none}
@@ -427,7 +417,6 @@ figcaption{font-size:12.5px;color:var(--ink-3);margin-top:12px;line-height:1.5;m
       <a class="bigcta" href="#file">See all eight</a>
     </aside>
   </div>
-  <div class="spacer" role="presentation"></div>
 </section>
 
 <!-- ========== vehicles ==========
@@ -577,8 +566,6 @@ figcaption{font-size:12.5px;color:var(--ink-3);margin-top:12px;line-height:1.5;m
   </div>
 </section>
 
-<div class="spacer" role="presentation"></div>
-
 <!-- ========== contact band ========== -->
 <section class="wrap">
   <div class="band">
@@ -595,8 +582,6 @@ figcaption{font-size:12.5px;color:var(--ink-3);margin-top:12px;line-height:1.5;m
     </div>
   </div>
 </section>
-
-<div class="spacer" role="presentation"></div>
 
 <!-- ========== the street the dealership is named after ========== -->
 <section class="wrap story">
