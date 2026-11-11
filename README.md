@@ -3,21 +3,46 @@
 A featured-vehicles page for **Golden Mile Chrysler** (1743 Eglinton Ave E, Toronto). Eight units for
 the month, each priced as a weekly finance payment and linked to its real listing.
 
-**`index.html`** is the current design. It is a single self-contained file — no build step, no
-dependencies — so it can be opened directly, dropped on a static host, or pasted into a WordPress
-Custom HTML block.
+**`index.html`** is the current design. It is a single self-contained file — no build step, one web
+font — so it can be opened directly, dropped on a static host, or pasted into a WordPress Custom HTML
+block.
+
+The page has **no header or navigation of its own**: it is built to sit inside the dealership site,
+which supplies the chrome. It still carries the black contact bar at the top and a footer; remove
+those too if the host page duplicates them.
 
 ## What's here
 
 | Path | What it is |
 | --- | --- |
-| `index.html` | The page. All CSS inline, one web font. |
+| `index.html` | The page. All CSS inline. |
 | `images/` | The eight vehicle photographs. |
-| `index-plain.html` | The same page before the visual refresh. |
-| `index-catalogue.html` | An earlier editorial "specimen catalogue" treatment. |
+| `index-orange.html` | The previous design, before the site colours were matched. |
+| `index-plain.html` | A plainer dealer-style layout. |
+| `index-catalogue.html` | An editorial "specimen catalogue" treatment. |
 | `index-classic.html` | The first version, closest to the original cdd6.ca layout. |
-| `assets/` | Archival Golden Mile photographs and a composed photo strip. Used only by `index-catalogue.html`. |
+| `assets/` | Archival Golden Mile photographs, plus a composed strip used only by `index-catalogue.html`. |
 | `assets/credits.json` | Source, author and licence for every found image. |
+
+## Matching the dealership site
+
+Colours were sampled from a screenshot of goldenmilechrysler.ca rather than chosen:
+
+| Token | Value | Taken from |
+| --- | --- | --- |
+| `--red` | `#CA0000` | the "View Featured Special" button |
+| `--black` | `#000000` | the brand tile band |
+| `--band` | `#EBEBEB` | the card info strip |
+| `--photo` | `#C7C7C7` | the studio photo background |
+
+The card anatomy copies the site's Featured Specials cards: a small make line, a large condensed
+uppercase trim line, a grey info strip split left and right, then a full-width red button. The
+site's strip reads *57 / Kilometers* and *$74,038 / PRICE*; this one reads *826022 / STOCK* and
+*$100.88 / WEEKLY*, with the finance breakdown beneath it. The black panel with red-outlined tiles
+follows the site's SHOP RAM / SHOP JEEP tiles.
+
+Display type is **Oswald**, which approximates the site's condensed face but has not been confirmed
+as the same font.
 
 ## The vehicles
 
@@ -44,29 +69,28 @@ All on the same terms: $0 down, 96 months, 5.99%, plus HST and licensing.
 2. **The disclaimer is a draft, not compliance-approved.** Ontario weekly-payment advertising carries
    specific OMVIC all-in pricing and cost-of-borrowing disclosure requirements. Replace the footer
    text with the dealership's approved wording.
-3. **The photographs are crops from a screenshot**, roughly 590px wide, levelled to a common
-   background tone so no tile shows an inner frame. Fine on screen, soft for production — replace
-   with the originals from each listing. The RAM 1500 shot also has a gold warranty banner burned
-   into it, which breaks the set and pulls focus in the grid.
+3. **The photographs are crops from a screenshot**, roughly 590px wide, levelled to the site's
+   `#C7C7C7` studio grey so they sit flush in their tiles. Fine on screen, soft for production —
+   replace with the originals from each listing. The RAM 1500 shot also has a gold warranty banner
+   burned into it, which breaks the set and pulls focus in the grid.
 4. **Check the Charger's colour.** Stock 826171 is advertised here as Bludicrous Blue and the photo
    is blue, but the dealership's own listing data gives the exterior as "After Dark". The VIN
    (2C3CDAMP3TR216230) matches the stock number, so the colour field is the thing to verify.
-5. **The typeface and accent colour are not the dealership's.** The page uses Inter and the Car
-   Doctor orange `#E8651B`. Both are single CSS variables at the top of the file (`--font`,
-   `--brand`) and should be swapped for the real site values.
+5. **Confirm the display typeface.** Oswald stands in for the site's condensed face; swap `--display`
+   if the real one differs.
 
-## Known rough edges
+## Not included
 
-- Cards carrying a photo note (Grand Caravan, Durango, Pacifica) are taller than their neighbours, so
-  the Call/Email buttons do not line up across a row.
-- On a phone the sticky header's "Call 647-288-5337" button wraps to two lines.
+The **SHOP RAM / SHOP JEEP / SHOP DODGE / SHOP CHRYSLER** strip from the dealership homepage was left
+out: it needs four inventory URLs that could not be verified, and the site returns HTTP 403 to
+automated requests. Supply the four links and the strip can be added — the tile styling is already in
+the stylesheet.
 
 ## Image credits
 
 Vehicle photographs are the dealership's own.
 
-The two photographs of the Golden Mile used by `index-catalogue.html` are Creative Commons and are
-credited in that page's footer:
+The two photographs of the Golden Mile are Creative Commons and are credited in the page captions:
 
 - "Golden Mile Plaza, north-east corner of Eglinton Avenue East and Victoria Park Avenue" by
   Toronto History, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/), via
@@ -75,4 +99,4 @@ credited in that page's footer:
   [CC BY 4.0](https://creativecommons.org/licenses/by/4.0), via
   [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Golden_Mile_Scarborough_2023.jpg)
 
-Attribution is a condition of both licences — keep the credit lines if those pages are reused.
+Attribution is a condition of both licences — keep the credit lines if these pages are reused.
